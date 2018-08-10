@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2018年08月07日 13:46
  */
 @SpringBootApplication
+//@EnableAutoConfiguration
+//@ComponentScan(basePackages = {"com.yemast.frame.controller", "com.yemast.frame.service", "com.yemast.frame.expansion"})
 @MapperScan(basePackages = {"com.yemast.frame.mapper"})
 public class App {
 

@@ -3,7 +3,6 @@ package com.yemast.frame.expansion.exception;
 import com.yemast.frame.common.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author owen
  * @since 11:31
  */
-@RestControllerAdvice
+//@RestControllerAdvice
 @Slf4j
 public class GlobalJsonException {
 
