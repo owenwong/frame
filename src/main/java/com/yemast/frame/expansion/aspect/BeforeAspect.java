@@ -16,14 +16,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
 /**
- * @author WangWx
- * @since 2018年08月07日 14:29
+ * 前置和后置拦截请求
+ * @Author WangWX
+ * @Date 2018/8/13 13:02
  */
 @Aspect
 @Component
 @Slf4j
 public class BeforeAspect {
-    private static final ThreadLocal<Long> startTimeThreadLocal = new NamedThreadLocal<>("ThreadLocal StartTime");
+    private static final ThreadLocal<Long> STARTTIMETHREADLOCAL = new NamedThreadLocal<>("ThreadLocal StartTime");
 
     /**
      * 定义拦截规则：拦截com.yemast.frame包下面的所有类中，有@RequestMapping注解的方法。
@@ -33,33 +34,40 @@ public class BeforeAspect {
     }
 
     /**
-     * @author owen
-     * @since 16:09
+     * 请求前拦截
+     *
+     * @Param [jp]
+     * @return void
      */
     @Before("pointCut()")
     public void doBefore(JoinPoint jp) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        startTimeThreadLocal.set(System.currentTimeMillis());
+        STARTTIMETHREADLOCAL.set(System.currentTimeMillis());
+        STARTTIMETHREADLOCAL.remove();
         log.info("请求地址:" + request.getRequestURL().toString());
         log.info("请求方法:" + jp.getSignature().getName());
         log.info("请求参数:" + Arrays.asList(jp.getArgs()));
     }
 
     /**
-     * @author owen
-     * @since 8:44
+     * 请求后回调
+     *
+     * @Param [object]
+     * @return java.lang.Object
      */
     @AfterReturning(pointcut = "pointCut()", returning = "object")
     public Object doAfter(Object object) {
         log.info("响应数据:" + JsonUtil.o2j(object));
-        log.info("响应耗时:" + ((System.currentTimeMillis() - startTimeThreadLocal.get())) + "ms");
+        log.info("响应耗时:" + ((System.currentTimeMillis() - STARTTIMETHREADLOCAL.get())) + "ms");
         return object;
     }
 
     /**
-     * @author owen
-     * @since 8:44
+     * 请求异常处理
+     *
+     * @Param [point, e]
+     * @return void
      */
 //    @AfterThrowing(pointcut = "pointCut()", throwing = "e")
     public void doAfterThrowing(JoinPoint point, Throwable e) {

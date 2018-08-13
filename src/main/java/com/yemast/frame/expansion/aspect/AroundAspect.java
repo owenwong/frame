@@ -15,8 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
 /**
- * @author WangWx
- * @since 2018年08月07日 14:29
+ * 环绕拦截
+ * @Author WangWX
+ * @Date 2018/8/13 13:07
  */
 //@Aspect
 //@Component
@@ -30,6 +31,12 @@ public class AroundAspect {
     public void pointCut() {
     }
 
+    /**
+     * 拦截请求
+     *
+     * @return java.lang.Object
+     * @Param [pjp]
+     */
     @Around("pointCut()")
     public Object Interceptor(ProceedingJoinPoint pjp) {
         BaseResponse baseResponse;
@@ -49,6 +56,12 @@ public class AroundAspect {
         return baseResponse;
     }
 
+    /**
+     * 处理异常
+     *
+     * @return com.yemast.frame.common.BaseResponse
+     * @Param [point, e]
+     */
     private BaseResponse handlerException(JoinPoint point, Throwable e) {
         log.error("请求方法:" + point.getSignature().getName());
         log.error("请求参数" + Arrays.asList(point.getArgs()));

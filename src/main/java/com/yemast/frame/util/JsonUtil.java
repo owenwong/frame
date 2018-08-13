@@ -6,8 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 /**
- * @author WangWx
- * @since 2018年08月09日 10:08
+ * Json工具类
+ * @Author WangWX
+ * @Date 2018/8/13 13:11
  */
 public class JsonUtil {
 

@@ -1,8 +1,9 @@
 package com.yemast.frame.util;
 
 /**
- * @author WangWx
- * @since 2018年08月07日 14:49
+ * 常量
+ * @Author WangWX
+ * @Date 2018/8/13 13:11
  */
 public class Const {
     /***
