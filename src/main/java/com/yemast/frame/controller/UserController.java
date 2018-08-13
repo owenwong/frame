@@ -1,6 +1,5 @@
 package com.yemast.frame.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.yemast.frame.common.BaseRequest;
 import com.yemast.frame.common.BaseResponse;
 import com.yemast.frame.entity.User;
@@ -10,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
- * @author owen
- * @since 17:18
+ * 用户控制器
+ *
+ * @Author WangWX
+ * @Date 2018/8/13 18:37
  */
 @RestController()
 @RequestMapping("/user")
@@ -24,6 +27,7 @@ public class UserController {
 
     /***
      * 根据名称获取用户
+     *
      * @param name
      * @return
      */
@@ -37,13 +41,14 @@ public class UserController {
 
     /***
      * 获取用户列表
+     *
      * @param request
      * @return
      */
     @RequestMapping("/getList")
     public BaseResponse getList(BaseRequest request) {
         BaseResponse response = new BaseResponse();
-        PageInfo<User> user = userService.getList(request);
+        List<User> user = userService.getList(request);
         String str = "213345";
         response.setData("user", user);
         response.setData("str", str);
@@ -52,6 +57,7 @@ public class UserController {
 
     /***
      * 保存用户
+     *
      * @param name
      * @param address
      * @return

@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author WangWx
- * @since 2018年08月10日 14:46
+ * 配置信息控制器
+ *
+ * @Author WangWX
+ * @Date 2018/8/13 18:37
  */
 @RestController()
 @RequestMapping("/config")
@@ -20,9 +22,11 @@ public class ConfigController extends BaseController {
     @Autowired
     private ServerProperties serverProperties;
 
-    /***
+    /**
      * 根据名称获取用户
-     * @return
+     *
+     * @Param []
+     * @return com.yemast.frame.common.BaseResponse
      */
     @RequestMapping("/get")
     public BaseResponse get() {

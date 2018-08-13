@@ -5,8 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author WangWx
- * @since 2018年08月07日 13:46
+ * 系统启动入口
+ *
+ * @Author WangWX
+ * @Date 2018/8/13 13:16
  */
 @SpringBootApplication
 //@EnableAutoConfiguration
