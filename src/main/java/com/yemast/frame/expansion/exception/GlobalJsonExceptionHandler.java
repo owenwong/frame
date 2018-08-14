@@ -4,7 +4,6 @@ import com.yemast.frame.common.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
@@ -17,7 +16,7 @@ import java.util.Objects;
  */
 @RestControllerAdvice
 @Slf4j
-public class GlobalExceptionHandler {
+public class GlobalJsonExceptionHandler {
 
     private static final String MESSAGE = "服务器开小差，请稍后再试...";
 
@@ -28,19 +27,11 @@ public class GlobalExceptionHandler {
      * @Param [request, e]
      */
     @ExceptionHandler(value = Exception.class)
-    public Object defaultErrorJsonHandler(HttpServletRequest request, Exception e) {
+    public BaseResponse defaultErrorHandler(HttpServletRequest request, Exception e) {
         log.error(e.getLocalizedMessage(), e);
-        if (isAjax(request)) {
-            ModelAndView mv = new ModelAndView("error");
-            mv.addObject("exception", e);
-            mv.addObject("url", request.getRequestURL());
-            mv.addObject("message", MESSAGE);
-            return mv;
-        } else {
-            BaseResponse response = new BaseResponse();
-            response.setFail(MESSAGE);
-            return response;
-        }
+        BaseResponse response = new BaseResponse();
+        response.setFail(MESSAGE);
+        return response;
     }
 
     /**
@@ -50,19 +41,11 @@ public class GlobalExceptionHandler {
      * @Param [request, e]
      */
     @ExceptionHandler(value = BusinessException.class)
-    public Object myErrorJsonHandler(HttpServletRequest request, BusinessException e) {
+    public BaseResponse myErrorHandler(HttpServletRequest request, BusinessException e) {
         log.error(e.getLocalizedMessage(), e);
-        if (isAjax(request)) {
-            ModelAndView mv = new ModelAndView("error");
-            mv.addObject("exception", e);
-            mv.addObject("url", request.getRequestURL());
-            mv.addObject("message", e.getLocalizedMessage());
-            return mv;
-        } else {
-            BaseResponse response = new BaseResponse();
-            response.setFail(e.getLocalizedMessage());
-            return response;
-        }
+        BaseResponse response = new BaseResponse();
+        response.setFail(e.getLocalizedMessage());
+        return response;
     }
 
     /**

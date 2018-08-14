@@ -17,6 +17,7 @@ import java.util.Arrays;
 
 /**
  * 前置和后置拦截请求
+ *
  * @Author WangWX
  * @Date 2018/8/13 13:02
  */
@@ -36,15 +37,14 @@ public class BeforeAspect {
     /**
      * 请求前拦截
      *
-     * @Param [jp]
      * @return void
+     * @Param [jp]
      */
     @Before("pointCut()")
     public void doBefore(JoinPoint jp) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         STARTTIMETHREADLOCAL.set(System.currentTimeMillis());
-        STARTTIMETHREADLOCAL.remove();
         log.info("请求地址:" + request.getRequestURL().toString());
         log.info("请求方法:" + jp.getSignature().getName());
         log.info("请求参数:" + Arrays.asList(jp.getArgs()));
@@ -53,21 +53,22 @@ public class BeforeAspect {
     /**
      * 请求后回调
      *
-     * @Param [object]
      * @return java.lang.Object
+     * @Param [object]
      */
     @AfterReturning(pointcut = "pointCut()", returning = "object")
     public Object doAfter(Object object) {
         log.info("响应数据:" + JsonUtil.o2j(object));
         log.info("响应耗时:" + ((System.currentTimeMillis() - STARTTIMETHREADLOCAL.get())) + "ms");
+        STARTTIMETHREADLOCAL.remove();
         return object;
     }
 
     /**
      * 请求异常处理
      *
-     * @Param [point, e]
      * @return void
+     * @Param [point, e]
      */
 //    @AfterThrowing(pointcut = "pointCut()", throwing = "e")
     public void doAfterThrowing(JoinPoint point, Throwable e) {

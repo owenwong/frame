@@ -11,4 +11,5 @@ public class BaseRequest {
 
     private Integer pageSize;
     private Integer pageNum;
+
 }

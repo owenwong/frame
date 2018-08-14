@@ -1,15 +1,16 @@
 package com.yemast.frame.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yemast.frame.common.BaseRequest;
 import com.yemast.frame.common.BaseResponse;
 import com.yemast.frame.entity.User;
-import com.yemast.frame.service.UserService;
+import com.yemast.frame.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * 用户控制器
@@ -23,50 +24,62 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
-    /***
+    /**
      * 根据名称获取用户
      *
-     * @param name
-     * @return
+     * @Param [name]
+     * @return com.yemast.frame.common.BaseResponse
      */
     @RequestMapping("/get")
     public BaseResponse get(String name) {
         BaseResponse response = new BaseResponse();
-        User user = userService.get(name);
+        User user = userService.selectOne(new QueryWrapper<User>().lambda().like(User::getName, name));
         response.setData("user", user);
         return response;
     }
 
-    /***
+    /**
      * 获取用户列表
      *
-     * @param request
-     * @return
+     * @Param [request]
+     * @return com.yemast.frame.common.BaseResponse
      */
     @RequestMapping("/getList")
     public BaseResponse getList(BaseRequest request) {
         BaseResponse response = new BaseResponse();
-        List<User> user = userService.getList(request);
-        String str = "213345";
-        response.setData("user", user);
-        response.setData("str", str);
+        IPage<User> userList = userService.selectPage(new Page<User>(request.getPageNum(), request.getPageSize()), null);
+        response.setData("user", userList);
         return response;
     }
 
-    /***
+    /**
      * 保存用户
      *
-     * @param name
-     * @param address
-     * @return
+     * @Param [name, address]
+     * @return com.yemast.frame.common.BaseResponse
      */
     @RequestMapping("/save")
     public BaseResponse save(String name, String address) {
         BaseResponse response = new BaseResponse();
-        User user = userService.insert(name, address);
+        User user = new User(name, address);
+        userService.insert(user);
         response.setData("user", user);
+        return response;
+    }
+
+    /**
+     * 删除用户
+     *
+     * @return com.yemast.frame.common.BaseResponse
+     * @Param [id]
+     */
+    @RequestMapping("/del")
+    public BaseResponse del(Integer id) {
+        BaseResponse response = new BaseResponse();
+        userService.deleteById(id);
+        response.setSuccess("删除成功");
         return response;
     }
 }
