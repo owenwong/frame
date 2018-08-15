@@ -16,9 +16,4 @@ public class Const {
      */
     public static final String SUCCESS = "1";
 
-    /**
-     * 默认条数
-     */
-    public static final Integer DEFAULT_PAGE_SIZE = 10;
-
 }

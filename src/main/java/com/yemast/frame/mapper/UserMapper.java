@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yemast.frame.entity.User;
 
 /**
+ * 用户持久层
+ *
  * @author WangWx
  * @since 2018年08月09日 13:27
  */
