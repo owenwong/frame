@@ -2,6 +2,7 @@ package com.yemast.frame.expansion.exception;
 
 import com.yemast.frame.common.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -23,7 +25,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class GlobalJsonExceptionHandler {
 
-    private static final String MESSAGE = "服务器开小差，请稍后再试...";
+    private static String MESSAGE = "服务器开小差，请稍后再试...";
 
     /**
      * Exception 处理
@@ -32,42 +34,45 @@ public class GlobalJsonExceptionHandler {
      * @Param [request, e]
      */
     @ExceptionHandler(value = Exception.class)
-    public BaseResponse defaultErrorHandler(HttpServletRequest request, Exception e) {
-        log.error(e.getLocalizedMessage(), e);
+    public BaseResponse handlerException(HttpServletRequest request, Exception e) {
         BaseResponse response = new BaseResponse();
+        // 处理绑定异常 或 方法参数无效的
+        if (e instanceof BindException) {
+            BindException be = (BindException) e;
+            MESSAGE = bulidMessage(be.getBindingResult());
+        }
+        // 处理自定义业务异常
+        else if (e instanceof BusinessException) {
+            MESSAGE = e.getLocalizedMessage();
+        }
         response.setFail(MESSAGE);
+        log.error(MESSAGE, e);
         return response;
     }
 
-    /**
-     * Exception 处理
-     *
-     * @return java.lang.Object
-     * @Param [request, e]
-     */
-    @ExceptionHandler(value = BindException.class)
-    public BaseResponse bindException(HttpServletRequest request, BindException e) {
-        BindingResult bindingResult = e.getBindingResult();
-        List<ObjectError> allErrors = bindingResult.getAllErrors();
-        String errorMsg = "参数错误：" + allErrors.stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(","));
-        log.error(errorMsg, e);
-        BaseResponse response = new BaseResponse();
-        response.setFail(errorMsg);
-        return response;
-    }
 
     /**
-     * 自定义异常处理
+     * 处理消息
      *
-     * @return java.lang.Object
-     * @Param [request, e]
+     * @return com.yemast.frame.common.BaseResponse
+     * @Param [result, e]
      */
-    @ExceptionHandler(value = BusinessException.class)
-    public BaseResponse myErrorHandler(HttpServletRequest request, BusinessException e) {
-        log.error(e.getLocalizedMessage(), e);
-        BaseResponse response = new BaseResponse();
-        response.setFail(e.getLocalizedMessage());
-        return response;
+    public String bulidMessage(BindingResult result) {
+        List<ObjectError> allErrors = result.getAllErrors();
+        List<String> messages = new ArrayList<>();
+        for (ObjectError error : allErrors) {
+            // 转换异常特殊处理
+            if (error.getDefaultMessage().contains("FormatException")) {
+                Object[] object = error.getArguments();
+                for (int i = 0; i < object.length; i++) {
+                    DefaultMessageSourceResolvable dmsr = (DefaultMessageSourceResolvable) object[i];
+                    messages.add(dmsr.getDefaultMessage() + "参数类型有误");
+                }
+            } else {
+                messages.add(error.getDefaultMessage());
+            }
+        }
+        return messages.stream().collect(Collectors.joining(","));
     }
 
     /**

@@ -3,15 +3,17 @@ package com.yemast.frame.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yemast.frame.common.BaseController;
 import com.yemast.frame.common.BasePageRequest;
 import com.yemast.frame.common.BaseResponse;
 import com.yemast.frame.entity.User;
 import com.yemast.frame.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * 用户控制器
@@ -22,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController()
 @RequestMapping("/user")
 @Slf4j
-public class UserController {
+public class UserController extends BaseController {
 
     @Autowired
     private IUserService userService;
@@ -48,7 +50,7 @@ public class UserController {
      * @return com.yemast.frame.common.BaseValidatorResponse
      */
     @RequestMapping("/getList")
-    public BaseResponse getList(@Validated BasePageRequest request, BaseResponse response) {
+    public BaseResponse getList(@Valid BasePageRequest request, BaseResponse response) {
         IPage<User> userList = userService.selectPage(new Page<User>(request.getPageNum(), request.getPageSize()), null);
         response.setData("user", userList);
         return response;
