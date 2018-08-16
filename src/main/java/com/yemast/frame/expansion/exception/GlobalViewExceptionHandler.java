@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
  * @Author WangWX
  * @Date 2018/8/13 13:12
  */
-//@ControllerAdvice
 @Slf4j
+//@ControllerAdvice
 public class GlobalViewExceptionHandler {
 
     private static final String MESSAGE = "服务器开小差，请稍后再试...";

@@ -1,4 +1,4 @@
-package com.yemast.frame.config;
+package com.yemast.frame.expansion.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

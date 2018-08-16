@@ -2,7 +2,7 @@ package com.yemast.frame.controller;
 
 import com.yemast.frame.common.BaseController;
 import com.yemast.frame.common.BaseResponse;
-import com.yemast.frame.config.RedisConfig;
+import com.yemast.frame.expansion.config.RedisConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

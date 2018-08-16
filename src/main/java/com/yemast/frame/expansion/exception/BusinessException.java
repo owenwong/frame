@@ -2,6 +2,7 @@ package com.yemast.frame.expansion.exception;
 
 /**
  * 自定义业务异常
+ *
  * @Author WangWX
  * @Date 2018/8/13 13:10
  */

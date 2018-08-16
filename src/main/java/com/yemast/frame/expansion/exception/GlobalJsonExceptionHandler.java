@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
  * @Author WangWX
  * @Date 2018/8/13 13:12
  */
-@RestControllerAdvice
 @Slf4j
+@RestControllerAdvice
 public class GlobalJsonExceptionHandler {
 
     private static String MESSAGE = "服务器开小差，请稍后再试...";

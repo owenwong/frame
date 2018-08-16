@@ -19,9 +19,9 @@ import java.util.Arrays;
  * @Author WangWX
  * @Date 2018/8/13 13:07
  */
+@Slf4j
 //@Aspect
 //@Component
-@Slf4j
 public class AroundAspect {
 
     /**

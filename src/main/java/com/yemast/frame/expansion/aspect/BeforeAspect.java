@@ -21,9 +21,9 @@ import java.util.Arrays;
  * @Author WangWX
  * @Date 2018/8/13 13:02
  */
+@Slf4j
 @Aspect
 @Component
-@Slf4j
 public class BeforeAspect {
     private static final ThreadLocal<Long> STARTTIMETHREADLOCAL = new NamedThreadLocal<>("ThreadLocal StartTime");
 

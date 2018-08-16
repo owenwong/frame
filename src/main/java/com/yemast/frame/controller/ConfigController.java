@@ -2,7 +2,7 @@ package com.yemast.frame.controller;
 
 import com.yemast.frame.common.BaseController;
 import com.yemast.frame.common.BaseResponse;
-import com.yemast.frame.config.ServerProperties;
+import com.yemast.frame.expansion.config.ServerProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
