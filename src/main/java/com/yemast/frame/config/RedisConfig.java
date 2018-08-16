@@ -1,8 +1,11 @@
-package com.yemast.frame.util;
+package com.yemast.frame.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.util.Map;
 import java.util.Set;
@@ -14,11 +17,23 @@ import java.util.concurrent.TimeUnit;
  * @author WangWx
  * @date 2018年08月15日 17:17
  */
-@Component
-public class RedisUtil {
+@Configuration
+public class RedisConfig {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+    private static RedisTemplate redisTemplate;
+
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory);
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        template.setHashKeySerializer(new GenericJackson2JsonRedisSerializer());
+        template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+        template.afterPropertiesSet();
+        redisTemplate = template;
+        return template;
+    }
 
     /**
      * 实现命令：TTL key，以秒为单位，返回给定 key的剩余生存时间(TTL, time to live)。
@@ -26,7 +41,7 @@ public class RedisUtil {
      * @param key
      * @return
      */
-    public long ttl(String key) {
+    public static long ttl(String key) {
         return redisTemplate.getExpire(key);
     }
 
@@ -36,7 +51,7 @@ public class RedisUtil {
      * @param key
      * @return
      */
-    public void expire(String key, long timeout) {
+    public static void expire(String key, long timeout) {
         redisTemplate.expire(key, timeout, TimeUnit.SECONDS);
     }
 
@@ -46,14 +61,14 @@ public class RedisUtil {
      * @param key
      * @return
      */
-    public long incr(String key, long delta) {
+    public static long incr(String key, long delta) {
         return redisTemplate.opsForValue().increment(key, delta);
     }
 
     /**
      * 实现命令：KEYS pattern，查找所有符合给定模式 pattern的 key
      */
-    public Set<String> keys(String pattern) {
+    public static Set<String> keys(String pattern) {
         return redisTemplate.keys(pattern);
     }
 
@@ -62,7 +77,7 @@ public class RedisUtil {
      *
      * @param key
      */
-    public void del(String key) {
+    public static void del(String key) {
         redisTemplate.delete(key);
     }
 
@@ -74,7 +89,7 @@ public class RedisUtil {
      * @param key
      * @param value
      */
-    public void set(String key, String value) {
+    public static void set(String key, String value) {
         redisTemplate.opsForValue().set(key, value);
     }
 
@@ -85,7 +100,7 @@ public class RedisUtil {
      * @param value
      * @param timeout （以秒为单位）
      */
-    public void set(String key, String value, long timeout) {
+    public static void set(String key, String value, long timeout) {
         redisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
     }
 
@@ -95,7 +110,7 @@ public class RedisUtil {
      * @param key
      * @return value
      */
-    public String get(String key) {
+    public static String get(String key) {
         return (String) redisTemplate.opsForValue().get(key);
     }
 
@@ -108,7 +123,7 @@ public class RedisUtil {
      * @param field
      * @param value
      */
-    public void hset(String key, String field, Object value) {
+    public static void hset(String key, String field, Object value) {
         redisTemplate.opsForHash().put(key, field, value);
     }
 
@@ -119,7 +134,7 @@ public class RedisUtil {
      * @param field
      * @return
      */
-    public String hget(String key, String field) {
+    public static String hget(String key, String field) {
         return (String) redisTemplate.opsForHash().get(key, field);
     }
 
@@ -129,7 +144,7 @@ public class RedisUtil {
      * @param key
      * @param fields
      */
-    public void hdel(String key, Object... fields) {
+    public static void hdel(String key, Object... fields) {
         redisTemplate.opsForHash().delete(key, fields);
     }
 
@@ -139,7 +154,7 @@ public class RedisUtil {
      * @param key
      * @return
      */
-    public Map<Object, Object> hgetall(String key) {
+    public static Map<Object, Object> hgetall(String key) {
         return redisTemplate.opsForHash().entries(key);
     }
 
@@ -151,7 +166,7 @@ public class RedisUtil {
      * @return long
      * @Param [key, value]
      */
-    public long lpush(String key, String value) {
+    public static long lpush(String key, String value) {
         return redisTemplate.opsForList().leftPush(key, value);
     }
 
@@ -161,7 +176,7 @@ public class RedisUtil {
      * @return java.lang.String
      * @Param [key]
      */
-    public String lpop(String key) {
+    public static String lpop(String key) {
         return (String) redisTemplate.opsForList().leftPop(key);
     }
 
@@ -171,7 +186,7 @@ public class RedisUtil {
      * @return long
      * @Param [key, value]
      */
-    public long rpush(String key, String value) {
+    public static long rpush(String key, String value) {
         return redisTemplate.opsForList().rightPush(key, value);
     }
 
