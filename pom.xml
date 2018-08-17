@@ -5,7 +5,13 @@
 
     <groupId>com.yemast</groupId>
     <artifactId>frame</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>frame-core</module>
+        <module>frame-backend-api</module>
+        <module>frame-server-api</module>
+    </modules>
 
     <!-- 引入springboot 父项目 -->
     <parent>
@@ -25,14 +31,57 @@
         <mybatis.plus.version>3.0-gamma</mybatis.plus.version>
         <druid.version>1.1.9</druid.version>
         <pagehelper.version>1.2.5</pagehelper.version>
+        <frame.version>1.0-SNAPSHOT</frame.version>
+        <mysql.version>8.0.12</mysql.version>
+        <springboot.version>2.0.4.RELEASE</springboot.version>
     </properties>
-
+    <dependencyManagement>
+        <dependencies>
+            <!-- 引入jackson -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!-- alibaba 数据源 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!-- mybatis -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yemast</groupId>
+                <artifactId>frame-core</artifactId>
+                <version>${frame.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yemast</groupId>
+                <artifactId>frame-backend-api</artifactId>
+                <version>${frame.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yemast</groupId>
+                <artifactId>frame-server-api</artifactId>
+                <version>${frame.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
-        <!-- web组件 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <!-- 排除默认的logback -->
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -40,79 +89,5 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- 引入log4j2 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
-        <!-- 引入spring aop -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <!-- 引入jackson -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <!-- 简化代码 -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <!-- mysql驱动 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <!-- alibaba 数据源 -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${druid.version}</version>
-        </dependency>
-        <!-- mybatis -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis.plus.version}</version>
-        </dependency>
-        <!-- 动态加载配置到实体 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- redis -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <!-- thymeleaf -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
     </dependencies>
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <filtering>false</filtering>
-                <includes>
-                    <include>**/mapper/*.xml</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
 </project>

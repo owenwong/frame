@@ -1,0 +1,18 @@
+# 激活具体配置
+spring:
+  profiles:
+    active: core, dev
+  message:
+    encoding: UTF-8
+# server 配置
+server:
+  # 访问端口
+  port: 8080
+  servlet:
+    # 请求路径
+    path: /
+    # session超时时间
+    session:
+      timeout: 60
+  tomcat:
+    uri-encoding: UTF-8
