@@ -19,7 +19,7 @@ public class GeneratorServiceEntityTest {
 
     @Test
     public void generateCode() {
-        String packageName = "com.yemast.frame";
+        String packageName = "com.yemast.frame.core";
         //user -> UserService, 设置成true: user -> IUserService
         generateByTables(false, packageName, "user");
     }
@@ -32,7 +32,7 @@ public class GeneratorServiceEntityTest {
                 .setUrl(dbUrl)
                 .setUsername("root")
                 .setPassword("owen150")
-                .setDriverName("com.mysql.jdbc.Driver");
+                .setDriverName("com.mysql.cj.jdbc.Driver");
         StrategyConfig strategyConfig = new StrategyConfig();
         strategyConfig
                 .setCapitalMode(true)

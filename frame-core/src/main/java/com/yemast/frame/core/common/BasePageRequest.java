@@ -2,6 +2,7 @@ package com.yemast.frame.core.common;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
 
@@ -19,6 +20,7 @@ public class BasePageRequest extends BaseRequest {
      * 条数
      */
     @NotNull(message = "pageSize不能为空")
+    @Range(min = 1, max = 99, message = "pageSize为1-99之间")
     private Integer pageSize;
     /**
      * 页数

@@ -39,7 +39,7 @@ public class GlobalJsonExceptionHandler {
         // 处理绑定异常 或 方法参数无效的
         if (e instanceof BindException) {
             BindException be = (BindException) e;
-            return BaseResponse.failRuntime(bulidMessage(be.getBindingResult()));
+            return BaseResponse.failArgument(bulidMessage(be.getBindingResult()));
         }
         // 处理自定义业务异常
         else if (e instanceof BusinessException) {
