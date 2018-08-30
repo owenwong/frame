@@ -21,8 +21,9 @@ public class GlobalViewExceptionHandler {
     /**
      * Exception 处理
      *
-     * @return java.lang.Object
-     * @Param [request, e]
+     * @param request
+     * @param e
+     * @return org.springframework.web.servlet.ModelAndView
      */
     @ExceptionHandler(value = Exception.class)
     public ModelAndView defaultErrorHandler(HttpServletRequest request, Exception e) {
@@ -35,10 +36,11 @@ public class GlobalViewExceptionHandler {
     }
 
     /**
-     * 自定义异常处理
+     *  自定义异常处理
      *
-     * @return java.lang.Object
-     * @Param [request, e]
+     * @param request
+     * @param e
+     * @return org.springframework.web.servlet.ModelAndView
      */
     @ExceptionHandler(value = BusinessException.class)
     public ModelAndView myErrorHandler(HttpServletRequest request, BusinessException e) {

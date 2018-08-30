@@ -1,7 +1,4 @@
-package com.yemast.frame.core.service;/**
- * @author WangWx
- * @since 2018年08月14日 12:00
- */
+package com.yemast.frame.core.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yemast.frame.core.entity.User;

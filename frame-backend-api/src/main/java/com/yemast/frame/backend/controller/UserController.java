@@ -31,8 +31,8 @@ public class UserController {
     /**
      * 根据名称获取用户
      *
-     * @return com.yemast.frame.common.BaseResponse
-     * @Param [name]
+     * @param name
+     * @return com.yemast.frame.core.common.BaseResponse
      */
     @RequestMapping("/get")
     public BaseResponse get(String name) {
@@ -43,8 +43,8 @@ public class UserController {
     /**
      * 获取用户列表
      *
-     * @return com.yemast.frame.common.BaseValidatorResponse
-     * @Param [request, response]
+     * @param request
+     * @return com.yemast.frame.core.common.BaseResponse
      */
     @RequestMapping("/getList")
     public BaseResponse getList(@Valid BasePageRequest request) {
@@ -55,8 +55,9 @@ public class UserController {
     /**
      * 保存用户
      *
-     * @return com.yemast.frame.common.BaseResponse
-     * @Param [name, address]
+     * @param name
+     * @param address
+     * @return com.yemast.frame.core.common.BaseResponse
      */
     @RequestMapping("/save")
     public BaseResponse save(String name, String address) {
@@ -68,8 +69,8 @@ public class UserController {
     /**
      * 删除用户
      *
-     * @return com.yemast.frame.common.BaseResponse
-     * @Param [id]
+     * @param id
+     * @return com.yemast.frame.core.common.BaseResponse
      */
     @RequestMapping("/del")
     public BaseResponse del(Integer id) {

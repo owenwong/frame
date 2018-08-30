@@ -30,8 +30,9 @@ public class GlobalJsonExceptionHandler {
     /**
      * Exception 处理
      *
-     * @return java.lang.Object
-     * @Param [request, e]
+     * @param request
+     * @param e
+     * @return com.yemast.frame.core.common.BaseResponse
      */
     @ExceptionHandler(value = Exception.class)
     public BaseResponse handlerException(HttpServletRequest request, Exception e) {
@@ -52,8 +53,8 @@ public class GlobalJsonExceptionHandler {
     /**
      * 处理消息
      *
-     * @return com.yemast.frame.common.BaseResponse
-     * @Param [result, e]
+     * @param result
+     * @return java.lang.String
      */
     public String bulidMessage(BindingResult result) {
         List<ObjectError> allErrors = result.getAllErrors();
@@ -76,8 +77,8 @@ public class GlobalJsonExceptionHandler {
     /**
      * 判断是否为Ajax请求
      *
+     * @param request
      * @return boolean
-     * @Param [request]
      */
     private static boolean isAjax(HttpServletRequest request) {
         return Objects.equals(request.getHeader("X-Requested-With"), "XMLHttpRequest");

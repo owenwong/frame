@@ -37,8 +37,8 @@ public class AroundAspect {
     /**
      * 拦截请求
      *
+     * @param pjp
      * @return java.lang.Object
-     * @Param [pjp]
      */
     @Around("pointCut()")
     public Object Interceptor(ProceedingJoinPoint pjp) {
@@ -62,8 +62,9 @@ public class AroundAspect {
     /**
      * 处理异常
      *
-     * @return com.yemast.frame.common.BaseResponse
-     * @Param [point, e]
+     * @param point
+     * @param e
+     * @return com.yemast.frame.core.common.BaseResponse
      */
     private BaseResponse handlerException(JoinPoint point, Throwable e) {
         log.error("请求方法:" + point.getSignature().getName());

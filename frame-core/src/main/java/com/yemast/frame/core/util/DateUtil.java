@@ -16,8 +16,9 @@ public class DateUtil {
     /**
      * 格式化日期为字符串的函数
      *
+     * @param date
+     * @param format
      * @return java.lang.String
-     * @Param [date, format]
      */
     public static String formatDate(Date date, String format) {
         if (date == null) {
@@ -34,8 +35,8 @@ public class DateUtil {
     /**
      * 格式化日期
      *
+     * @param date
      * @return java.lang.String
-     * @Param [date]
      */
     public static String formatDate(Date date) {
         return formatDate(date, "yyyy-MM-dd");
@@ -44,8 +45,8 @@ public class DateUtil {
     /**
      * 格式化日期
      *
+     * @param date
      * @return java.lang.String
-     * @Param [date]
      */
     public static String formatDateTime(Date date) {
         return formatDate(date, "yyyy-MM-dd HH:mm:ss");
@@ -54,8 +55,9 @@ public class DateUtil {
     /**
      * 将字符串（指定格式）转化为日期
      *
+     * @param str
+     * @param format
      * @return java.util.Date
-     * @Param [str, format]
      */
     public static Date parseDate(String str, String format) {
         try {
@@ -72,8 +74,8 @@ public class DateUtil {
     /**
      * 把字符串日期解析成Date对象
      *
+     * @param str
      * @return java.util.Date
-     * @Param [str]
      */
     public static Date parseDate(String str) {
         if ((str == null) || (str.trim().length() == 0)) {

@@ -37,8 +37,8 @@ public class BeforeAspect {
     /**
      * 请求前拦截
      *
+     * @param jp
      * @return void
-     * @Param [jp]
      */
     @Before("pointCut()")
     public void doBefore(JoinPoint jp) {
@@ -53,8 +53,8 @@ public class BeforeAspect {
     /**
      * 请求后回调
      *
+     * @param object
      * @return java.lang.Object
-     * @Param [object]
      */
     @AfterReturning(pointcut = "pointCut()", returning = "object")
     public Object doAfter(Object object) {
@@ -67,8 +67,9 @@ public class BeforeAspect {
     /**
      * 请求异常处理
      *
+     * @param point
+     * @param e
      * @return void
-     * @Param [point, e]
      */
 //    @AfterThrowing(pointcut = "pointCut()", throwing = "e")
     public void doAfterThrowing(JoinPoint point, Throwable e) {

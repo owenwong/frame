@@ -21,7 +21,7 @@ public class TestTask {
 
     // 每隔3秒执行一次
     // @Scheduled(fixedRate = 3000)
-//    @Scheduled(cron = "4-40 * * * * ?")
+    // @Scheduled(cron = "4-40 * * * * ?")
     public void printDate() {
         log.info(DateUtil.formatDateTime(new Date()));
     }
