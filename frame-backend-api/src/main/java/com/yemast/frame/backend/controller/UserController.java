@@ -36,7 +36,7 @@ public class UserController {
      */
     @RequestMapping("/get")
     public BaseResponse get(String name) {
-        User user = userService.selectOne(new QueryWrapper<User>().lambda().like(User::getName, name));
+        User user = userService.getOne(new QueryWrapper<User>().lambda().like(User::getName, name));
         return BaseResponse.ok(user);
     }
 
@@ -48,7 +48,7 @@ public class UserController {
      */
     @RequestMapping("/getList")
     public BaseResponse getList(@Valid BasePageRequest request) {
-        IPage<User> userList = userService.selectPage(new Page<User>(request.getPageNum(), request.getPageSize()), null);
+        IPage<User> userList = userService.page(new Page<User>(request.getPageNum(), request.getPageSize()), null);
         return BaseResponse.ok(userList);
     }
 
@@ -62,7 +62,7 @@ public class UserController {
     @RequestMapping("/save")
     public BaseResponse save(String name, String address) {
         User user = new User(name, address);
-        userService.insert(user);
+        userService.save(user);
         return BaseResponse.ok().setData("user", user);
     }
 
@@ -74,7 +74,7 @@ public class UserController {
      */
     @RequestMapping("/del")
     public BaseResponse del(Integer id) {
-        userService.deleteById(id);
+        userService.removeById(id);
         return BaseResponse.ok();
     }
 }
