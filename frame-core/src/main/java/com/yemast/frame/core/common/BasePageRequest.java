@@ -1,5 +1,6 @@
 package com.yemast.frame.core.common;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Range;
@@ -21,11 +22,13 @@ public class BasePageRequest extends BaseRequest {
      */
     @NotNull(message = "pageSize不能为空")
     @Range(min = 1, max = 99, message = "pageSize为1-99之间")
+    @ApiModelProperty(value = "条数", name = "pageSize", example = "10")
     private Integer pageSize;
     /**
      * 页数
      */
     @NotNull(message = "pageNum不能为空")
+    @ApiModelProperty(value = "页数", name = "pageNum", example = "1")
     private Integer pageNum;
 
 }

@@ -34,6 +34,7 @@
         <frame.version>1.0-SNAPSHOT</frame.version>
         <mysql.version>8.0.12</mysql.version>
         <springboot.version>2.0.4.RELEASE</springboot.version>
+        <swagger2.version>2.9.2</swagger2.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -60,6 +61,18 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis.plus.version}</version>
             </dependency>
+            <!-- swagger2 -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+            <!-- 子模块 -->
             <dependency>
                 <groupId>com.yemast</groupId>
                 <artifactId>frame-core</artifactId>

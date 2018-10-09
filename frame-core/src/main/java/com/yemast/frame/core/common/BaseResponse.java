@@ -41,6 +41,11 @@ public class BaseResponse {
         this.data = data;
     }
 
+    public BaseResponse(String msg) {
+        this.code = Const.SUCCESS;
+        this.msg = msg;
+    }
+
     public BaseResponse(Integer code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
@@ -48,11 +53,16 @@ public class BaseResponse {
     }
 
     public static BaseResponse ok() {
-        return new BaseResponse(null);
+        return new BaseResponse("OK");
     }
 
     public static BaseResponse ok(Object data) {
         return new BaseResponse(data);
+    }
+
+    public BaseResponse setData(Object data) {
+        this.data = data;
+        return this;
     }
 
     public BaseResponse setData(String name, Object data) {
